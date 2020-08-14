@@ -19,6 +19,10 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: Extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
     - name: Build and push Docker images
       uses: docker/build-push-action@v1.1.0
       with:
@@ -26,4 +30,4 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
         registry: registry.cn-qingdao.aliyuncs.com
         repository: metersphere/metersphere
-        tags: ${GITHUB_REF##*/}
+        tags: ${{ steps.extract_branch.outputs.branch }}
