@@ -26,4 +26,4 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
         registry: registry.cn-qingdao.aliyuncs.com
         repository: metersphere/metersphere
-        tag: ${GITHUB_REF##*/}
+        tags: ${GITHUB_REF##*/}
